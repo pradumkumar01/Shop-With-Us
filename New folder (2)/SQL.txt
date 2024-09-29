@@ -1,0 +1,562 @@
+Password :mysql@123
+1. Sql is structural qurey language.
+2. SQL is a database management system use to manage data.
+3. DBMS is a software use to store and retrive data.
+4. DBMS is classified into to two parts :
+		a. Relational DBMS (SQL)
+		b. Not-Relational DBMS (Not SQL)
+================================================================================================================================================
+5. SQL 
+	----- HOW TO CREATE DATABASE ? ------
+	
+	I. 	open MYSQL
+	II.	write CREATE DATABASE name_of_database ;
+	III.	after that write USE  name_of_database ;
+	IV.	after that we have to create table into database so
+		we have to write CREATE TABLE name_of_table
+
+	V.	then write appropriate table items such that if yoou want to create a 
+		table of students or you want to crete a table of your employee etc
+
+	VI.	here you have to write table items using 
+		CREATE TABLE name_of_table 
+		(
+			id it may be into integer(int unsigned),
+			name varchar(122),
+			email varchar(100),
+			password varchar(13),
+			dob time,
+			address text,
+			status boolean, 
+			primary key id,
+			foreign key (city) references city(id)	
+		)
+===============================================================================================================================================
+6. 	------------ How to INSERT DATA into table--------
+
+	I.	write use DATABASE;
+	II.	write 
+			INSERT INTO name_of_table
+			(id,name,email,password,dob,address,status)
+			VALUES
+			(1,"Ram","ram@gmail.com","12345678","2000-12-12","gkp",1),
+			(2,"Shayam","shayam@gmail.com","12345678","2000-12-13","gkp",1),
+			(3,"Mohan","mohan@gmail.com","12345678","2000-12-14","gkp",1)
+================================================================================================================================================
+7.	----------- VALIDATE THE DATA ITEMS OF A TABLE ---------
+
+	I.	validate means using the constraints into tables like :
+			A.	NOT NULL
+			B.	UNIQUE
+			C.	DEFAULT
+			D.	CHEACK
+			E.	FOREGIN KEY (not study)
+ 			F.	PRIMARY KEY (not study)
+	II.	Example name should not be null ,
+		age should be greater than 18,
+		email should not be same,
+		status should be always 1.
+
+	III.	CREATE TABLE name_of_table
+		(
+			id INT not null unique,
+			name varchar(100) not null,
+			email varchar(100) not null unique,
+			age tinyint check(age>=18),
+			status boolean default 1
+		)
+================================================================================================================================================
+-------------------------------------------------------------------------------------------------------------------------------------------
+8.	                                                OPERATOR/CLAUSE IN MySQL
+-------------------------------------------------------------------------------------------------------------------------------------------	
+
+	I.	AND		(SELECT * FROM name_of_table WHERE age>=18 AND age <=25 AND address="gkp") 
+	--------------------------------------------------------------------------------------------
+	II.	OR		(SELECT * FROM name_of_table WHERE age>=18 OR age <=25 OR address="gkp")
+	--------------------------------------------------------------------------------------------
+	III.	NOT		(SELECT * FROM name_of_table WHERE NOT age>=18 AND NOT age <=25 AND NOT address="gkp")
+	-------------------------------------------------------------------------------------------------------
+	IV.	IN		(SELECT * FROM name_of_table WHERE age in(18,19,25)) it is use in place of or operator/clause
+	--------------------------------------------------------------------------------------------------------------
+	V.	LIKE		(SELECT * FROM name_of_tbale WHERE name LIKE "b%") give the name which start with letter b and contains multiple character
+				(SELECT * FROM name_of_tbale WHERE name LIKE "b_") give the name which start with letter b and contains single character
+				
+				SOME LIKE OPERATOR ARE :
+	=====================================================================================		+++++++++++++++++++++++++++++++++
+	=	LIKE OPERATOR	|		DESCRIPTION							=		+ NOTES:-                       +
+	=				|										=		+ (_) :->underscore represent   +
+ 	=	LIKE "b%"		|	start with letter "b"						=		+	   single character       +
+	=	LIKE "%b"		|	end with letter "b"						=		+ (%) :->percentage represent   +
+	=	LIKE "%ob%"		|	have "ob" in any position					=		+	   multiple character     +
+	=	LIKE "_b%"		|	have "b" in second position					=		+++++++++++++++++++++++++++++++++
+	=	LIKE "b_%"		|	start with "b" and are at least 2 character length	=
+	=	LIKE "b__%"		|	start with "b" and are at least 3 character length	=
+	=	LIKE "b%o"		|	start with letter "b" and end with "o"			=
+	=				|										=
+	=====================================================================================
+	--------------------------------------------------------------------------------------------------------------------------------------
+	VI.	BETWEEN 	(SELECCT * FROM name_of_table WHERE age BETWEEN 18 AND 25)
+	---------------------------------------------------------------------------
+	VII.	NOT BETWEEN (SELECCT * FROM name_of_table WHERE age NOT BETWEEN 18 AND 25)
+	--------------------------------------------------------------------------------
+	VIII.	ORDER BY and DISTINCT
+			
+			ORDER BY 
+				#	ASC	(SELECT * FROM name_of_table WHERE ORDER BY name ASC)
+				#	DESC	(SELECT * FROM name_of_table WHERE ORDER BY age(sab kuch) DESC) 
+			DISTINCT 
+				#	SELECT DISTINCT city FROM name_of_table (give all the name of city without repeating)
+					SELECT DICTINCT age FROM name_of_table ORDER BY ASC (give all the age without repeating in ascending order)
+	----------------------------------------------------------------------------------------------------------------------------------
+	IX.	NULL and NOT NULL
+				#	NULL		[SELECT * FROM name_of_table WHERE gender IS NULL]
+					NULL		[SELECT * FROM name_of_table WHERE gender IS NULL and age IS NULL]
+
+				#	NOT NULL	[SELECT * FROM name_of_table WHERE gender IS NOT NULL]				
+					NOT NULL	[SELECT * FROM name_of_table WHERE gender IS NOT NULL and age IS NOT NULL]
+	------------------------------------------------------------------------------------------------------------
+	X.	LIMIT and OFFSET
+				# LIMIT		[SELECT * FROM name_of_table LIMIT 5]
+				  LIMIT		[SELECT * FROM name_of_table ORDER BY age ASC LIMIT 5]
+				  LIMIT		[SELECT * FROM name_of_table ORDER BY name DESC LIMIT 5]
+				  LIMIT		[SELECT * FROM name_of_table WHRER age >=25 LIMIT 5]
+
+				# OFFSET		[SELECT * FROM name_of_table LIMIT 4 OFFSET 0] $(start with 0 index)
+				  OFFSET		[SELECT * FROM name_of_table LIMIT 4 OFFSET 1] $(start with 1 index and leave 0 index)
+				  OFFSET		[SELECT * FROM name_of_table LIMIT 4 OFFSET 2] $(start with 2 index and leave 0,1 index)
+				  OFFSET		[SELECT * FROM name_of_table LIMIT 4 OFFSET 4] $(start with 4 index and leave 0,1,2,3 index)
+================================================================================================================================================
+						----------------------------------------
+9.							AGGRIGATE FUNCTION IN MySQL
+						----------------------------------------
+	
+	I.	COUNT() : returns the number of rows in a database table
+			#	SELECT count(id) FROM name_of_table WHERE fees >4000;
+	---------------------------------------------------------------------
+	II.	SUM() : returns the total sum of a numeric column
+			#	SELECT sum(fees) FROM name_of_table ;
+	-------------------------------------------------------
+	III.	AVG() : calcuale the average of a set of values.
+			#	SELECT  avg(fees) FROM name_of_table ;
+	-------------------------------------------------------
+	IV.	MIN() : return the lowest values in a set of non null values
+			#	SELECT min(fees) FROM name_of_table ;
+	------------------------------------------------------------------
+	V.	MAX() : returns the greatest values in a set non null values
+			#	SELECT max(fees) FROM name_of_table;	
+	------------------------------------------------------------------
+================================================================================================================================================
+
+10.	I.	UPDATE
+			# UPDATE name_of_table SET fees=2000 WHERE id=3;
+			  UPDATE name_of_table SET fees=6000 WHERE id=5;
+			  UPDATE name_of_table SET fees=4000 WHERE id=7;
+	II.	DELETE
+			# DELETE FROM name_of_table WHERE id=2;
+			  DELETE FROM name_of_table WHERE id=5;
+			  DELETE FROM name_of_table WHERE id=6;
+
+
+================================================================================================================================================
+						----------------------------
+11.                                  CREATE TABLE OF FEES
+						----------------------------
+
+>>create database new 
+>>use new 
+
+>>create table fee
+	(
+		id tinyint primary key,
+		name varchar(100) not null,
+    		city text,
+    		age tinyint,
+    		gender enum("M","F","O"),
+    		fees int,
+    		status boolean default 1
+	)
+
+>>Insert into fee values
+		(1,"Aman","gkp",23,"M",2000,1),
+		(2,"Riya","lucknow",22,"F",7000,1),
+		(3,"Pawan","goa",27,"M",7000,1),
+		(4,"Rakool","rajasthan",24,"F",26000,1),
+		(5,"Deepak","delhi",26,"M",5000,1),
+		(6,"Preet Kaur","punjab",24,"F",4000,1)
+
+
+>>UPDATE fee SET fees=6000 WHERE id=5;
+
+		(1,"Aman","gkp",23,"M",2000,1),
+		(2,"Riya","lucknow",22,"F",7000,1),
+		(3,"Pawan","goa",27,"M",7000,1),
+		(4,"Rakool","rajasthan",24,"F",26000,1),
+		(5,"Deepak","delhi",26,"M",6000,1),
+		(6,"Preet Kaur","punjab",24,"F",4000,1)
+>>DELETE FROM feee WHERE id IN(5,6,4)
+		(1,"Aman","gkp",23,"M",2000,1),
+		(2,"Riya","lucknow",22,"F",7000,1),
+		(3,"Pawan","goa",27,"M",7000,1)
+============================================================================================================================================================
+
+12. COMMIT  & ROLLBACK
+	
+	#	COMMIT	[SELECT * FROM emp ;]
+				[COMMIT;]
+				[UPDATE fees SET fee=9000 WHERE id=2;]
+				[COMMIT;]
+	---------------------------------------------------------
+	#	ROLLBACK	[SELECT * FROM emp ;]
+				[COMMIT;]
+				[UPDATE fees SET fee=9000 WHERE id=5;]
+				[ROLLBACK;]
+				[COMMIT;]
+	---------------------------------------------------------
+============================================================================================================================================================
+
+13. PRIMARY KEY & FOREIGN KEY 
+
+>>create table tb01
+	(
+		id int unique auto_increment not null ,
+		name varchar(150) not null ,
+    		age int not null,
+    		city int not null,
+  		primary key(id),
+    		FOREIGN KEY (city) references city(id)
+    	)
+>>insert into tb01
+(id	name	age	city_id)
+VALUES
+(1	Ram	24	2)
+(2	Ranu	25	3)
+(3	Riya	23	2)
+(4	Shayam22	1)
+
+>>create table city 
+	(
+		id int not null unique auto_increment,
+		city varchar(120) not null
+	)
+>>insert into 
+	(id, city)
+	values
+	("lucknow")
+	("Sahjanwa")
+	("Gorakhpur")
+	("Sant Kabir Nagar")
+------------------------------------
+id	city					|
+1	Lucknow				|
+2	Sahjanwa				|
+3	Gorakhpur				|
+4	Khalilabad				|
+------------------------------------				
+id	name	age	city_id		|
+1	Ram	24	2			|
+2	Ranu	25	3			|
+3	Riya	23	2			|
+4	Shayam22	3			|
+------------------------------------
+============================================================================================================================================================
+
+14.	Use Of INNER JOIN
+			  -find those data which have same values
+			  -fetch those data which have relation to another data
+
+
+	#	SELECT * FROM tb01
+		INNER JOIN city
+		ON tb01.city_id = city.id;
+		------------------------------------------
+	#	1	Ram	24	2	2	Sahjanwa	|
+		2	Ranu	25	3	3	Gorakhpur	|
+		3	Riya	23	2	2	Sahjanwa	|
+		4	Shayam22	3	3	Gorakhpur	|
+		------------------------------------------					
+============================================================================================================================================================
+
+15.Use Of LEFT JOIN & RIGHT JOIN
+			  -select all the data of left table and fetch the common data in both table.
+			  -select all the data of right table and fetch the common data in both table.
+			  
+	------------------------------------------
+	# emp (left)
+
+		1	ram	23	1
+		2	mohan	24	1
+		3	riya 	22	3
+		4	 ranu 20	3
+		5	dhiraj25	4
+		6	dhawan27	4
+		7	pawan	22	NULL
+		
+	# city (right)
+ 
+		1	Lucknow
+		2	Sahjanwa
+		3	Gorakhpur
+		4	Khalilabad
+		5	Kolkata
+		6	Delhi
+	-------------------------------------------
+
+#	SELECT * FROM emp
+		LEFT JOIN city
+		ON tb01.city_id = city.id;
+		-----------------------------------------
+		1	ram	23	1	1	Lucknow
+		2	mohan	24	1	1	Lucknow
+		3	riya 	22	3	3	Gorakhpur
+		4	 ranu 20	3	3	Gorakhpur
+		5	dhiraj 25	4	4	Khalilabad
+		6	dhawan 27	4	4	Khalilabad
+		7	pawan	22			
+		-----------------------------------------
+
+#	SELECT * FROM emp
+		RIGHT JOIN city
+		ON tb01.city_id = city.id;
+
+		------------------------------------------------
+		1	ram	23	1	1	Lucknow
+		2	mohan	24	1	1	Lucknow
+						2	Sahjanwa
+		3	riya 	22	3	3	Gorakhpur
+		4	 ranu 	20	3	3	Gorakhpur
+		5	dhiraj 	25	4	4	Khalilabad
+		6	dhawan 	27	4	4	Khalilabad
+							5	Kolkata
+							6	Delhi
+		--------------------------------------------------
+
+16.	CROSS JOIN 
+			-use to create cartesian product of the table.
+
+
+#	SELECT * FROM emp
+	CROSS JOIN city;
+----------------------------------------------
+1	ram	23	1	6	Delhi
+1	ram	23	1	5	Kolkata
+1	ram	23	1	4	Khalilabad
+1	ram	23	1	3	Gorakhpur
+1	ram	23	1	2	Sahjanwa
+1	ram	23	1	1	Lucknow
+2	mohan	24	1	6	Delhi
+2	mohan	24	1	5	Kolkata
+2	mohan	24	1	4	Khalilabad
+2	mohan	24	1	3	Gorakhpur
+2	mohan	24	1	2	Sahjanwa
+2	mohan	24	1	1	Lucknow
+3	riya 	22	3	6	Delhi
+3	riya 	22	3	5	Kolkata
+3	riya 	22	3	4	Khalilabad
+3	riya 	22	3	3	Gorakhpur
+3	riya 	22	3	2	Sahjanwa
+3	riya 	22	3	1	Lucknow
+4	 ranu 	20	3	6	Delhi
+4	 ranu 	20	3	5	Kolkata
+4	 ranu 	20	3	4	Khalilabad
+4	 ranu 	20	3	3	Gorakhpur
+4	 ranu 	20	3	2	Sahjanwa
+4	 ranu 	20	3	1	Lucknow
+5	dhiraj 	25	4	6	Delhi
+5	dhiraj 	25	4	5	Kolkata
+5	dhiraj 	25	4	4	Khalilabad
+5	dhiraj 	25	4	3	Gorakhpur
+5	dhiraj 	25	4	2	Sahjanwa
+5	dhiraj 	25	4	1	Lucknow
+6	dhawan 	27	4	6	Delhi
+6	dhawan 	27	4	5	Kolkata
+6	dhawan 	27	4	4	Khalilabad
+6	dhawan 	27	4	3	Gorakhpur
+6	dhawan 	27	4	2	Sahjanwa
+6	dhawan 	27	4	1	Lucknow
+7	pawan	22		6	Delhi
+7	pawan	22		5	Kolkata
+7	pawan	22		4	Khalilabad
+7	pawan	22		3	Gorakhpur
+7	pawan	22		2	Sahjanwa
+7	pawan	22		1	Lucknow 
+-------------------------------------------------------------
+
+#	SELECT * FROM city
+	CROSS JOIN emp;
+--------------------------------------------------------------
+6	Delhi	1	ram	23	1
+5	Kolkata	1	ram	23	1
+4	Khalilabad	1	ram	23	1
+3	Gorakhpur	1	ram	23	1
+2	Sahjanwa	1	ram	23	1
+1	Lucknow	1	ram	23	1
+6	Delhi	2	mohan	24	1
+5	Kolkata	2	mohan	24	1
+4	Khalilabad	2	mohan	24	1
+3	Gorakhpur	2	mohan	24	1
+2	Sahjanwa	2	mohan	24	1
+1	Lucknow	2	mohan	24	1
+6	Delhi	3	riya 	22	3
+5	Kolkata	3	riya 	22	3
+4	Khalilabad	3	riya 	22	3
+3	Gorakhpur	3	riya 	22	3
+2	Sahjanwa	3	riya 	22	3
+1	Lucknow	3	riya 	22	3
+6	Delhi	4	 ranu 	20	3
+5	Kolkata	4	 ranu 	20	3
+4	Khalilabad	4	 ranu 	20	3
+3	Gorakhpur	4	 ranu 	20	3
+2	Sahjanwa	4	 ranu 	20	3
+1	Lucknow	4	 ranu 	20	3
+6	Delhi	5	dhiraj 	25	4
+5	Kolkata	5	dhiraj 	25	4
+4	Khalilabad	5	dhiraj 	25	4
+3	Gorakhpur	5	dhiraj 	25	4
+2	Sahjanwa	5	dhiraj 	25	4
+1	Lucknow	5	dhiraj 	25	4
+6	Delhi	6	dhawan 	27	4
+5	Kolkata	6	dhawan 	27	4
+4	Khalilabad	6	dhawan 	27	4
+3	Gorakhpur	6	dhawan 	27	4
+2	Sahjanwa	6	dhawan 	27	4
+1	Lucknow	6	dhawan 	27	4
+6	Delhi	7	pawan	22	
+5	Kolkata	7	pawan	22	
+4	Khalilabad	7	pawan	22	
+3	Gorakhpur	7	pawan	22	
+2	Sahjanwa	7	pawan	22	
+1	Lucknow	7	pawan	22
+----------------------------------------------------------	
+
+============================================================================================================================================================
+
+17.	MULTIPLE JOIN of table 
+
+
+-----------------------------
+>>(std table)
+1	Mohan	20	1	2
+2	Sohan	21	4	2
+3	SUman	22	2	1
+4	Raman	23	5	2
+5	Aman	27	3	4
+6	Arun	25	1	3
+-----------------------------
+>>(city table)
+1	Lucknow
+2	Sahjanwa
+3	Gorakhpur
+4	Khalilabad
+5	Kolkata
+6	Delhi
+----------------------------
+>>(course table)
+1	PHP
+2	JAVA
+3	PYTHON
+4	HTML
+----------------------------
+
+
+#	select * from std
+	inner join city
+	on std.city = city.id 
+	inner join course
+	on std.course = course.id
+----------------------------------------------------------------
+1	Mohan	20	1	2	1	Lucknow	2	JAVA
+2	Sohan	21	4	2	4	Khalilabad	2	JAVA
+3	SUman	22	2	1	2	Sahjanwa	1	PHP
+4	Raman	23	5	2	5	Kolkata	2	JAVA
+5	Aman	27	3	4	3	Gorakhpur	4	HTML
+6	Arun	25	1	3	1	Lucknow	3	PYTHON
+----------------------------------------------------------------
+
+============================================================================================================================================================
+
+18. GROUP BY and HAVING CLAUSE IN MySQL
+
+
+>>(std table)
+id	NAME	AGE	CITY	COURSE
+1	Mohan	20	1	2
+2	Sohan	21	4	2
+3	SUman	22	2	1
+4	Raman	23	5	2
+5	Aman	27	3	4
+6	Arun	25	1	3
+
+	#	SELECT city , COUNT(city) FROM std GROUP BY (city);
+
+		CITY	COUNT(CITY)
+		1	2
+		2	1
+		3	1
+		4	1
+		5	1
+	#	SELECT city , COUNT(city)as TOTAL FROM std
+		GROUP BY (city)
+		-----
+		HAVING COUNT(city) >=2
+		------
+		CITY	TOTAL
+		1	2
+
+============================================================================================================================================================
+
+19. 	#SUBQUERY
+	
+		# 	SELECT name from std
+			WHERE city=(SELECT id FROM city WHERE city="Khalilabd");
+			------------------
+			id	name	city	|
+			2	Sohan	4	|
+			------------------
+		#	SELECT * FROM std
+			WHERE city=(SELECT id FROM city WHERE city="Khalilabad")
+			=--------------------------=
+			1	Mohan	20	1	2
+			6	Arun	25	1	3
+			=--------------------------=
+ 	#EXISTS
+	
+		# 	SELECT name from std
+			WHERE EXITS (SELECT id FROM city WHERE city="Khalilabd");
+			=---------=
+			Mohan
+			Sohan
+			SUman
+			Raman
+			Aman
+			Arun
+			=---------=
+		# 	SELECT * from std
+			WHERE EXITS (SELECT id FROM city WHERE city="Khalilabd");
+			=----------------------------=
+			1	Mohan	20	1	2
+			2	Sohan	21	4	2
+			3	SUman	22	2	1
+			4	Raman	23	5	2
+			5	Aman	27	3	4
+			6	Arun	25	1	3
+			=----------------------------=
+
+	#NOT EXISTS
+		
+		#	SELECT * FROM std
+			WHERE NOT EXISTS (SELECT id FROM city WHERE city="Khalilabad")   ------nothing displayed
+	
+		#	SELECT * FROM std
+			WHERE NOT EXISTS (SELECT id FROM city WHERE city="agra") ------ display
+			=-------------------------=
+			1	Mohan	20	1	2
+			2	Sohan	21	4	2
+			3	SUman	22	2	1
+			4	Raman	23	5	2
+			5	Aman	27	3	4
+			6	Arun	25	1	3
+
+			=-------------------------=
+
+
+https://xhamster2.com/videos/nuru-massage-lucky-guy-gets-rough-with-sex-addict-ashley-adams-after-she-was-caught-masturbating-xhN3vO3

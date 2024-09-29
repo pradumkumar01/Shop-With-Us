@@ -1,0 +1,44 @@
+1. create directory(e-commerce)
+2. npx create-react-app .(dot means to insatll react into same folder)
+3. npm install @mui/material @emotion/react @emotion/styled (install mui.com)
+4. npm install @mui/icons-material @mui/material @emotion/styled @emotion/react (mui icon)
+5. npm install -D tailwindcss
+	paste into (index.css)
+	@tailwind base;
+	@tailwind components;
+	@tailwind utilities;
+6. npm start
+7. create directory customer/component/Navigation/
+   Navigation.jxs
+      paste code into this 
+	(https://tailwindui.com/components/ecommerce/components/store-navigation)
+8. Make change into 
+	export default function Navigation() {         ## Example k place pr Navigation likh dena hai.
+					------------
+  	const [open, setOpen] = useState(false)
+
+9. Make change into App.js
+		
+	delete few code 
+	 <div className="">
+      <Navigation/>
+     
+     <div>
+        Home
+    </div> 
+    </div>						### put it in place of the deleted code
+
+10. After that some error occures into home page to fixed then we have to install few packages
+11. npm i heroicons
+    npm i @headlessui/react
+    npm i @heroicons/react 
+12. 
+								 
+
+Rayzorpay
+apiKey="rzp_test_zNhGjNPHOItrxd"
+apiSecret="Ba1HR1vJaCuuxw9AqjwOIFo9"
+
+mongodburl 
+
+mongodb+srv://pradumkumar7929:CKKePrJ847SAE3et@cluster0.rzg6del.mongodb.net/?retryWrites=true&w=majority
